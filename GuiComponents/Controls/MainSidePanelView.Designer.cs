@@ -45,6 +45,7 @@
             this.button_loadDefaultCollection = new System.Windows.Forms.Button();
             this.button_loadCollection = new System.Windows.Forms.Button();
             this.button_refreshBeatmapList = new System.Windows.Forms.Button();
+            this.button_reloadAccuracyBrackets = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox_onlineServices.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -69,7 +70,7 @@
             // 
             // button_mapDownloads
             // 
-            this.button_mapDownloads.Location = new System.Drawing.Point(4, 311);
+            this.button_mapDownloads.Location = new System.Drawing.Point(4, 335);
             this.button_mapDownloads.Name = "button_mapDownloads";
             this.button_mapDownloads.Size = new System.Drawing.Size(170, 23);
             this.button_mapDownloads.TabIndex = 13;
@@ -79,7 +80,7 @@
             // 
             // button_beatmapListing
             // 
-            this.button_beatmapListing.Location = new System.Drawing.Point(4, 282);
+            this.button_beatmapListing.Location = new System.Drawing.Point(4, 306);
             this.button_beatmapListing.Name = "button_beatmapListing";
             this.button_beatmapListing.Size = new System.Drawing.Size(170, 23);
             this.button_beatmapListing.TabIndex = 12;
@@ -93,7 +94,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_onlineServices.Controls.Add(this.button_downloadAllMissing);
             this.groupBox_onlineServices.Controls.Add(this.button_GenerateCollections);
-            this.groupBox_onlineServices.Location = new System.Drawing.Point(3, 340);
+            this.groupBox_onlineServices.Location = new System.Drawing.Point(3, 364);
             this.groupBox_onlineServices.Name = "groupBox_onlineServices";
             this.groupBox_onlineServices.Size = new System.Drawing.Size(174, 76);
             this.groupBox_onlineServices.TabIndex = 12;
@@ -128,7 +129,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.button_listMissingMaps);
             this.groupBox3.Controls.Add(this.button_listAllCollections);
-            this.groupBox3.Location = new System.Drawing.Point(3, 198);
+            this.groupBox3.Location = new System.Drawing.Point(3, 222);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(174, 76);
             this.groupBox3.TabIndex = 11;
@@ -165,7 +166,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.button_saveAllCollections);
             this.groupBox2.Controls.Add(this.button_collectionsSplit);
-            this.groupBox2.Location = new System.Drawing.Point(3, 121);
+            this.groupBox2.Location = new System.Drawing.Point(3, 145);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(174, 76);
             this.groupBox2.TabIndex = 10;
@@ -200,12 +201,13 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.button_reloadAccuracyBrackets);
             this.groupBox1.Controls.Add(this.button_unloadCollections);
             this.groupBox1.Controls.Add(this.button_loadDefaultCollection);
             this.groupBox1.Controls.Add(this.button_loadCollection);
             this.groupBox1.Location = new System.Drawing.Point(3, 7);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(174, 108);
+            this.groupBox1.Size = new System.Drawing.Size(174, 132);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Collection loading";
@@ -257,6 +259,18 @@
             this.button_refreshBeatmapList.UseVisualStyleBackColor = true;
             this.button_refreshBeatmapList.Visible = false;
             // 
+            // button_reloadAccuracyBrackets
+            // 
+            this.button_reloadAccuracyBrackets.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_reloadAccuracyBrackets.Location = new System.Drawing.Point(1, 106);
+            this.button_reloadAccuracyBrackets.Name = "button_reloadAccuracyBrackets";
+            this.button_reloadAccuracyBrackets.Size = new System.Drawing.Size(170, 23);
+            this.button_reloadAccuracyBrackets.TabIndex = 9;
+            this.button_reloadAccuracyBrackets.Text = "Update Accuracy Brackets";
+            this.button_reloadAccuracyBrackets.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button_reloadAccuracyBrackets.UseVisualStyleBackColor = true;
+            // 
             // MainSidePanelView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -292,5 +306,6 @@
         public System.Windows.Forms.Button button_unloadCollections;
         public System.Windows.Forms.Button button_refreshBeatmapList;
         public System.Windows.Forms.Button button_downloadAllMissing;
+        public System.Windows.Forms.Button button_reloadAccuracyBrackets;
     }
 }

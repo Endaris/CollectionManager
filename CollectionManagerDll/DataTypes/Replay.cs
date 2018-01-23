@@ -66,6 +66,40 @@ namespace CollectionManager.DataTypes
             return outobj;
         }
 
+        public double getAcc()
+        {
+            if (PlayMode == PlayMode.Osu)
+            {
+                int objectCount = C300 + C100 + C50 + Miss;
+                int maxScore = objectCount * 300;
+                int realScore = C300 * 300 + C100 * 100 + C50 * 50;
+                return (double)realScore / maxScore;
+            }
+            else if (PlayMode == PlayMode.Taiko)
+            {
+                int maxScore = C300 + C100 + Miss;
+                double realScore = C300 + 0.5 * C100;
+                return realScore/maxScore;
+            }
+            else if (PlayMode == PlayMode.CatchTheBeat)
+            {
+                int maxScore = C300 + C100 + C50 + Katu + Miss;
+                int realScore = C300 + C100 + C50;
+                return (double) realScore/maxScore;
+            }
+            else if (PlayMode == PlayMode.OsuMania)
+            {
+                int objectCount = C300 + C100 + C50 + Geki + Katu + Miss;
+                int maxScore = objectCount * 300;
+                int realScore = 300 * (C300 + Geki) + 200 * Katu + 100 * C100 + 50 * C50;
+                return (double)realScore / maxScore;
+            }
+            else
+            {
+                return 0;
+            }           
+        }
+
         private static DateTime GetDate(long ticks)
         {
             if (ticks < 0L)

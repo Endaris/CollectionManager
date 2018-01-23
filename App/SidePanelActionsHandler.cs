@@ -15,6 +15,10 @@ using CollectionManagerExtensionsDll.Modules.API.osu;
 using CollectionManagerExtensionsDll.Modules.CollectionGenerator;
 using GuiComponents.Interfaces;
 using NAudio.Codecs;
+using System.Collections.Generic;
+using System.Linq;
+using CollectionManager.Modules.FileIO.OsuScoresDb;
+using GuiComponents;
 
 namespace App
 {
@@ -60,6 +64,7 @@ namespace App
             _mainForm.SidePanelView.ShowDownloadManager += (s, a) => ShowDownloadManager();
             _mainForm.SidePanelView.DownloadAllMissing += (s, a) => DownloadAllMissing();
             _mainForm.SidePanelView.GenerateCollections += (s, a) => GenerateCollections();
+            _mainForm.SidePanelView.ReloadAccuracyBrackets += (s, a) => ReloadAccuracyBrackets();
 
             _mainFormPresenter.InfoTextModel.UpdateTextClicked += FormUpdateTextClicked;
             _mainForm.Closing += FormOnClosing;
@@ -226,6 +231,103 @@ namespace App
         {
             CreateDownloadManagerForm();
             _downloadManagerForm.Show();
+        }
+
+        private void ReloadAccuracyBrackets()
+        {
+            ruinTheCode();
+        }
+
+        private void ruinTheCode()
+        {
+            string OsuDirectory = _osuFileIo.OsuPathResolver.GetOsuDir(_userDialogs.IsThisPathCorrect, _userDialogs.SelectDirectory);
+
+            if (((ScoresCacher)_osuFileIo.ScoresDatabase).Scores.Count == 0)
+                _osuFileIo.ScoresLoader.ReadDb(OsuDirectory + "\\scores.db");
+
+            foreach (KeyValuePair<string, Scores> pair in ((ScoresCacher)_osuFileIo.ScoresDatabase).ScoreList)
+            {
+                if (pair.Value.Count > 0)
+                {
+                    pair.Value.OrderBy(s => s.TotalScore);
+                    pair.Value.Reverse();
+                }
+            }
+
+            var scoreClone = ((ScoresCacher)_osuFileIo.ScoresDatabase).ScoreList;
+
+            Collection col99 = new Collection(_osuFileIo.LoadedMaps) { Name = "99%+" };
+            var list = scoreClone.Values.Where(s => s.First().getAcc() >= 0.9900).ToList();
+            foreach (Scores s in list)
+            {
+                col99.AddBeatmapByHash(s.First().MapHash);
+            }
+
+            Collection col98 = new Collection(_osuFileIo.LoadedMaps) { Name = "98-99%" };
+            list = scoreClone.Values.Where(s => s.First().getAcc() >= 0.9800 && s.First().getAcc() < 0.9900).ToList();
+            foreach (Scores s in list)
+            {
+                col98.AddBeatmapByHash(s.First().MapHash);
+            }
+
+            Collection col97 = new Collection(_osuFileIo.LoadedMaps) { Name = "97-98%" };
+            list = scoreClone.Values.Where(s => s.First().getAcc() >= 0.9700 && s.First().getAcc() < 0.9800).ToList();
+            foreach (Scores s in list)
+            {
+                col97.AddBeatmapByHash(s.First().MapHash);
+            }
+
+            Collection col95 = new Collection(_osuFileIo.LoadedMaps) { Name = "95-97%" };
+            list = scoreClone.Values.Where(s => s.First().getAcc() >= 0.9500 && s.First().getAcc() < 0.9700).ToList();
+            foreach (Scores s in list)
+            {
+                col95.AddBeatmapByHash(s.First().MapHash);
+            }
+
+            Collection col92 = new Collection(_osuFileIo.LoadedMaps) { Name = "92-95%" };
+            list = scoreClone.Values.Where(s => s.First().getAcc() >= 0.9200 && s.First().getAcc() < 0.9500).ToList();
+            foreach (Scores s in list)
+            {
+                col92.AddBeatmapByHash(s.First().MapHash);
+            }
+
+            Collection col88 = new Collection(_osuFileIo.LoadedMaps) { Name = "88-92%" };
+            list = scoreClone.Values.Where(s => s.First().getAcc() >= 0.8800 && s.First().getAcc() < 0.9200).ToList();
+            foreach (Scores s in list)
+            {
+                col88.AddBeatmapByHash(s.First().MapHash);
+            }
+
+            Collection colSub = new Collection(_osuFileIo.LoadedMaps) { Name = "<88%" };
+            list = scoreClone.Values.Where(s => s.First().getAcc() < 0.8800).ToList();
+            foreach (Scores s in list)
+            {
+                colSub.AddBeatmapByHash(s.First().MapHash);
+            }
+
+            Collection colMod = new Collection(_osuFileIo.LoadedMaps) { Name = "<88%" };
+            list = scoreClone.Values.Where(s => s.First().getAcc() < 0.8800 && s.First().Mods != 1).ToList();
+            foreach (Scores s in list)
+            {
+                colMod.AddBeatmapByHash(s.First().MapHash);
+            }
+
+            var collectionsManager = new CollectionsManagerWithCounts(_osuFileIo.OsuDatabase.LoadedMaps.Beatmaps);
+
+            collectionsManager.EditCollection(
+                CollectionEditArgs.AddCollections(_osuFileIo.CollectionLoader.LoadCollection(OsuDirectory + "\\collection.db"))
+            );
+
+            collectionsManager.EditCollection(
+                CollectionEditArgs.RemoveCollections(new List<string> { "99%+", "98-99%", "97-98%", "95-97%", "92-95%", "88-92%", "<88%" })
+            );
+
+
+            collectionsManager.EditCollection(
+                CollectionEditArgs.AddCollections(new Collections() { col99, col98, col97, col95, col92, col88, colSub })
+            );
+
+            _osuFileIo.CollectionLoader.SaveOsuCollection(collectionsManager.LoadedCollections, OsuDirectory + "\\collectionTest.db");
         }
     }
 }

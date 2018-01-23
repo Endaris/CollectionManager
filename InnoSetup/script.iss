@@ -22,8 +22,8 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-LicenseFile=D:\Kod\osu-related\Tools\osu!CollectionEditor\PublicCM\InnoSetup\license.txt
-OutputDir=D:\Kod\osu-related\Tools\osu!CollectionEditor\PublicCM\InnoSetup\output
+LicenseFile=.\license.txt
+OutputDir=.
 OutputBaseFilename=CollectionManagerSetup
 Compression=lzma
 SolidCompression=yes
@@ -41,15 +41,15 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "D:\Kod\osu-related\Tools\osu!CollectionEditor\PublicCM\App\bin\Release\App.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Kod\osu-related\Tools\osu!CollectionEditor\PublicCM\App\bin\Release\CollectionManager.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Kod\osu-related\Tools\osu!CollectionEditor\PublicCM\App\bin\Release\CollectionManagerExtensionsDll.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Kod\osu-related\Tools\osu!CollectionEditor\PublicCM\App\bin\Release\Common.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Kod\osu-related\Tools\osu!CollectionEditor\PublicCM\App\bin\Release\GuiComponents.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Kod\osu-related\Tools\osu!CollectionEditor\PublicCM\App\bin\Release\MusicPlayer.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Kod\osu-related\Tools\osu!CollectionEditor\PublicCM\App\bin\Release\NAudio.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Kod\osu-related\Tools\osu!CollectionEditor\PublicCM\App\bin\Release\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Kod\osu-related\Tools\osu!CollectionEditor\PublicCM\App\bin\Release\ObjectListView.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\App\bin\Debug\App.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\App\bin\Debug\CollectionManager.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\App\bin\Debug\CollectionManagerExtensionsDll.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\App\bin\Debug\Common.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\App\bin\Debug\GuiComponents.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\App\bin\Debug\MusicPlayer.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\App\bin\Debug\NAudio.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\App\bin\Debug\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\App\bin\Debug\ObjectListView.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
