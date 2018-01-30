@@ -17,6 +17,7 @@ namespace GuiComponents.Controls
         public event EventHandler ShowDownloadManager;
         public event EventHandler DownloadAllMissing;
         public event EventHandler GenerateCollections;
+        public event EventHandler CreateLostScoresCollection;
 
         public MainSidePanelView()
         {
@@ -32,6 +33,7 @@ namespace GuiComponents.Controls
             button_mapDownloads.Click += delegate { OnShowDownloadManager(); };
             button_downloadAllMissing.Click += delegate { OnDownloadAllMissing(); };
             button_GenerateCollections.Click += delegate { OnGenerateCollections(); };
+            button_createLostScoresCollection.Click += delegate { OnCreateLostScoresCollection(); };
         }
         private void OnLoadCollection()
         {
@@ -86,6 +88,11 @@ namespace GuiComponents.Controls
         protected virtual void OnGenerateCollections()
         {
             GenerateCollections?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnCreateLostScoresCollection()
+        {
+            CreateLostScoresCollection?.Invoke(this, EventArgs.Empty);
         }
     }
 }

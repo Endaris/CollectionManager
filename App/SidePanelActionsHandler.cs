@@ -60,6 +60,7 @@ namespace App
             _mainForm.SidePanelView.ShowDownloadManager += (s, a) => ShowDownloadManager();
             _mainForm.SidePanelView.DownloadAllMissing += (s, a) => DownloadAllMissing();
             _mainForm.SidePanelView.GenerateCollections += (s, a) => GenerateCollections();
+            _mainForm.SidePanelView.CreateLostScoresCollection += (s, a) => CreateLostScoresCollection();
 
             _mainFormPresenter.InfoTextModel.UpdateTextClicked += FormUpdateTextClicked;
             _mainForm.Closing += FormOnClosing;
@@ -226,6 +227,12 @@ namespace App
         {
             CreateDownloadManagerForm();
             _downloadManagerForm.Show();
+        }
+
+        private void CreateLostScoresCollection()
+        {
+            // magic unfolding
+            System.Windows.Forms.MessageBox.Show("button pressed!");
         }
     }
 }
