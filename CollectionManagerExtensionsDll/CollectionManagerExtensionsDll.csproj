@@ -62,6 +62,8 @@
     <Compile Include="Modules\API\osu\OsuSite.cs" />
     <Compile Include="Modules\BeatmapFilter\BeatmapFilter.cs" />
     <Compile Include="Modules\CollectionGenerator\CollectionsGenerator.cs" />
+    <Compile Include="Modules\CollectionGenerator\UserCollectionsGenerator.cs" />
+    <Compile Include="Modules\CollectionGenerator\UserLocalScoresGenerator.cs" />
     <Compile Include="Modules\CollectionGenerator\UserTopGenerator.cs" />
     <Compile Include="Modules\CollectionListGenerator\BeatmapType.cs" />
     <Compile Include="Modules\CollectionListGenerator\IListGenerator.cs" />

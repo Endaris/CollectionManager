@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CollectionManager.DataTypes;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace CollectionManagerExtensionsDll.DataTypes
@@ -55,6 +56,16 @@ namespace CollectionManagerExtensionsDll.DataTypes
             acc = Math.Round(acc, 2);
 
             if (acc < MinimumAcc || acc > MaximumAcc)
+                return false;
+
+            return true;
+        }
+
+        public bool IsEgibleForSaving(Score score)
+        {
+            //pp-part here
+
+            if (score.getAcc() * 100 < MinimumAcc || score.getAcc() * 100 > MaximumAcc) 
                 return false;
 
             return true;

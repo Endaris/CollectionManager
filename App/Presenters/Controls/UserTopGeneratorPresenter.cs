@@ -40,8 +40,8 @@ namespace App.Presenters.Controls
         private void ViewOnStart(object sender, EventArgs eventArgs)
         {
             //TODO: show some sort of error on missing api key
-            if (string.IsNullOrEmpty(_view.ApiKey))
-                return;
+            //if (string.IsNullOrEmpty(_view.ApiKey))
+            //    return;
             _model.GeneratorConfiguration = new CollectionGeneratorConfiguration()
             {
                 CollectionNameSavePattern = _view.CollectionNamingFormat,

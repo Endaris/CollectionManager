@@ -143,6 +143,10 @@ namespace CollectionManager.DataTypes
         public int MapId { get; set; }
         public int MapSetId { get; set; }
         public int ThreadId { get; set; }
+        public byte OsuGrade { get { return BitConverter.GetBytes(MapRating)[0]; } }
+        public byte TaikoGrade { get { return BitConverter.GetBytes(MapRating)[1]; } }
+        public byte CatchGrade { get { return BitConverter.GetBytes(MapRating)[2]; } }
+        public byte ManiaGrade { get { return BitConverter.GetBytes(MapRating)[3]; } }
         public int MapRating { get; set; }
         public short Offset { get; set; }
         public float StackLeniency { get; set; }
