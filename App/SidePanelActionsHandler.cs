@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using App.Interfaces;
 using App.Misc;
@@ -10,6 +12,7 @@ using App.Presenters.Forms;
 using CollectionManager.DataTypes;
 using CollectionManager.Modules.CollectionsManager;
 using CollectionManager.Modules.FileIO;
+using CollectionManager.Modules.FileIO.OsuScoresDb;
 using CollectionManagerExtensionsDll.DataTypes;
 using CollectionManagerExtensionsDll.Modules.API.osu;
 using CollectionManagerExtensionsDll.Modules.CollectionGenerator;
@@ -231,8 +234,34 @@ namespace App
 
         private void CreateLostScoresCollection()
         {
+            string OsuDirectory = _osuFileIo.OsuPathResolver.GetOsuDir(_userDialogs.IsThisPathCorrect, _userDialogs.SelectDirectory);
+
+            if (((ScoresCacher)_osuFileIo.ScoresDatabase).Scores.Count == 0)
+                _osuFileIo.ScoresLoader.ReadDb(OsuDirectory + "\\scores.db");
+
+            var scoresCacher = (ScoresCacher)_osuFileIo.ScoresDatabase;
+
+            Collection missingScores = new Collection(_osuFileIo.LoadedMaps) { Name = "missing scores" };
             // magic unfolding
-            System.Windows.Forms.MessageBox.Show("button pressed!");
+            foreach (var map in _osuFileIo.LoadedMaps.Beatmaps)
+            {
+                if (map.OsuGrade != 9 && map.State >= 4 && scoresCacher.GetScores(map).Count == 0)
+                {
+                    missingScores.AddBeatmapByHash(map.Md5);                           
+                }
+            }
+
+            var collectionsManager = new CollectionsManagerWithCounts(_osuFileIo.OsuDatabase.LoadedMaps.Beatmaps);
+
+            collectionsManager.EditCollection(
+                CollectionEditArgs.AddCollections(_osuFileIo.CollectionLoader.LoadCollection(OsuDirectory + "\\collection.db"))
+            );
+
+            collectionsManager.EditCollection(
+                CollectionEditArgs.AddCollections(new Collections() { missingScores })
+            );
+
+            _osuFileIo.CollectionLoader.SaveOsuCollection(collectionsManager.LoadedCollections, OsuDirectory + "\\collectionMissingScoreTest.db");
         }
     }
 }
